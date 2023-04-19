@@ -1,0 +1,108 @@
+function ace_show_prices_user_role( $price ) {
+    $current_user = wp_get_current_user();
+    $allowed_roles = array( 'wholesale', 'administrator', 'distributeurs_asie', 'distributeurs_usa', 'distributeurs_france', 'sav_france', 'team_commercial', 'sale_team_china', 'sale_team_usa', 'sav_usa' );
+    if ( in_array( 'administrator', $current_user->roles ) || array_intersect( $current_user->roles, $allowed_roles ) ) {
+        return $price;
+    }
+    $currency_symbol = get_woocommerce_currency_symbol();
+    $price = str_replace($currency_symbol, '', $price);
+    return $price;
+}
+
+
+// Show product price
+add_filter( 'woocommerce_get_price_html', 'ace_show_prices_user_role' );
+
+// Show sale price
+add_filter( 'woocommerce_format_sale_price', 'ace_show_prices_user_role' );
+
+// Show cart item price
+add_filter( 'woocommerce_cart_item_price', 'ace_show_prices_user_role' );
+
+// Show cart total price
+add_filter( 'woocommerce_cart_item_subtotal', 'ace_show_prices_user_role' );
+
+// Show cart subtotal price
+add_filter( 'woocommerce_cart_subtotal', 'ace_show_prices_user_role' );
+
+// Show cart total price
+add_filter( 'woocommerce_cart_total', 'ace_show_prices_user_role' );
+
+// Show item price in order confirmation, except for administrators
+function ace_show_item_price_for_administrators( $subtotal_html, $item, $order ) {
+    $current_user = wp_get_current_user();
+    $allowed_roles = array( 'administrator' );
+    if ( in_array( 'administrator', $current_user->roles ) ) {
+        return $subtotal_html;
+    }
+    return $item->get_total(); // Modification ici
+}
+add_filter( 'woocommerce_order_formatted_line_subtotal', 'ace_show_item_price_for_administrators', 10, 3 );
+
+// Show order item totals
+add_filter( 'woocommerce_get_order_item_totals', 'ace_show_prices_user_role' );
+
+/**
+ * Show price/total table headings with CSS.
+ */
+function ace_show_cart_checkout_price_headings() {
+    $current_user = wp_get_current_user();
+    $allowed_roles = array( 'wholesale', 'administrator', 'distributeurs_asie', 'distributeurs_usa', 'distributeurs_france', 'sav_france', 'team_commercial', 'sale_team_china', 'sale_team_usa', 'sav_usa');
+    if ( in_array( 'administrator', $current_user->roles ) || array_intersect( $current_user->roles, $allowed_roles ) ) {
+        ?><style>
+            .product-price, .product-subtotal, /* Cart */
+            .woocommerce-mini-cart__total, /* Cart widget */
+            .product-total, .cart-subtotal, .order-total /* Checkout */
+			#price
+            { display: block !important; }
+            .woocommerce-Price-amount.amount { visibility: visible !important; }
+        </style><?php
+    }
+    else {
+        ?><style>
+            .product-price, .product-subtotal, /* Cart */
+            .woocommerce-mini-cart__total, /* Cart widget */
+            .product-total, .cart-subtotal, .order-total /* Checkout */
+			#price
+            { display: none !important; }
+            .woocommerce-Price-amount.amount { visibility: hidden !important; }
+        </style><?php
+    }
+}
+add_action( 'wp_head', 'ace_show_cart_checkout_price_headings' );
+
+
+function remove_prices_from_customer_emails( $fields, $sent_to_admin, $order ) {
+    if ( is_user_logged_in() ) {
+        $user = $order->get_user();
+        $allowed_roles = array( 'customer', 'clients_eu_fr', 'clients_usa', 'clients_asie' );
+        if ( array_intersect( $user->roles, $allowed_roles ) ) {
+            $fields['order_total'] = ''; // remplace le contenu de l'email avec une chaîne vide
+        }
+    }
+    return $fields;
+}
+add_filter( 'woocommerce_email_order_meta_fields', 'remove_prices_from_customer_emails', 10, 3 );
+
+function remove_prices_from_customer_order_emails( $table, $order ) {
+    $user = $order->get_user();
+    $disallowed_roles = array( 'customer','clients_eu_fr', 'clients_usa', 'clients_asie' );
+    if ( array_intersect( $user->roles, $disallowed_roles ) ) {
+        $table = preg_replace( '/(<tr class="order-subtotal">.*?<td.*?>).*?(<\/td>.*?<\/tr>)/s', '${1}***${2}', $table );
+    }
+    return $table;
+}
+add_filter( 'woocommerce_email_order_items_table', 'remove_prices_from_customer_order_emails', 10, 2 );
+
+
+
+// // ici je bloque les emails pour le role : clients
+// function block_emails_for_specific_roles( $is_allowed, $user_id, $email ) {
+//     $user = get_user_by( 'id', $user_id );
+//     $disallowed_roles = array( 'clients_eu_fr', 'clients_usa', 'clients_asie' );
+//     if ( array_intersect( $user->roles, $disallowed_roles ) ) {
+//         return false;
+//     }
+//     return $is_allowed;
+// }
+// add_filter( 'woocommerce_email_recipient_customer_processing_order', 'block_emails_for_specific_roles', 10, 3 );
