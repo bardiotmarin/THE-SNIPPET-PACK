@@ -1,0 +1,4 @@
+<?php
+remove_action('woocommerce_product_tabs', 'woocommerce_product_reviews_tab', 30);
+remove_action('woocommerce_product_tab_panels', 'woocommerce_product_reviews_panel', 30);
+?>
