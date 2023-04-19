@@ -1,0 +1,3 @@
+add_filter( 'woocommerce_breadcrumb_defaults', 'wpm_change_breadcrumb_delimiter' );  
+function wpm_change_breadcrumb_delimiter( $defaults )
+/*Modifie le délimiteur du fil d'ariane de '/' à '|'*/ {$defaults['delimiter'] = ' <-| '; 	return $defaults; }
