@@ -1,0 +1,20 @@
+ /**
+ * **@snippet : Change SKU text label in woocommerce to Réf.**
+ * 
+ */
+
+function translate_woocommerce($translation, $text, $domain) {
+    if ($domain == 'woocommerce') {
+        switch ($text) {
+            case 'SKU':
+                $translation = 'Sérials';
+                break;
+            case 'SKU:':
+                $translation = 'Sérials';
+                break;
+        }
+    }
+    return $translation;
+}
+
+add_filter('gettext', 'translate_woocommerce', 10, 3);
