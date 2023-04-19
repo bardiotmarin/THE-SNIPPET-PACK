@@ -1,0 +1,10 @@
+<?php
+function wps_embed_size($embed_size){
+    if(is_single()){
+        $embed_size['height'] = 240;
+        $embed_size['width']  = 380;
+    }
+    return $embed_size;
+}  
+add_filter('embed_defaults', 'wps_embed_size');
+?>
