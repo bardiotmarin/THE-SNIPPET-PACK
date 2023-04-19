@@ -1,0 +1,25 @@
+function filter_woocommerce_email_recipient_new_order( $recipient, $order, $email ) {
+    // Avoiding backend displayed error in WooCommerce email settings
+    if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
+    
+    // Get shipping country
+    $country = $order->get_shipping_country();
+
+    // When empty
+    if ( empty( $country ) ) {
+        // Get billing country
+        $country = $order->get_billing_country();
+    }
+
+    // vérifie si les valleur existe dans le array 1  france, 2 usa, 3asia
+    if ( in_array( $country, array( 'ZA', 'AX', 'AL', 'DZ', 'DE', 'AD', 'AO', 'AT', 'BY', 'BE', 'BA', 'BW', 'BG', 'BF', 'BI', 'CV', 'CY', 'KM', 'CG', 'CD', 'HR', 'DK', 'DJ', 'EG', 'ER', 'ES', 'EE', 'SZ', 'ET', 'FO', 'FI', 'FR', 'GA', 'GM', 'GH', 'GI', 'GR', 'GG', 'GN', 'GQ', 'GW', 'HU', 'IM', 'IO', 'IR', 'IE', 'IS', 'IT', 'JE', 'KE', 'LS', 'LV', 'LR', 'LY', 'LI', 'LT', 'LU', 'MK', 'MG', 'MW', 'ML', 'MT', 'MA', 'MU', 'MR', 'YT', 'MD', 'MC', 'ME', 'MZ', 'NA', 'NE', 'NG', 'NO', 'UG', 'NL', 'PL', 'PF', 'PT', 'CF', 'RE', 'RO', 'GB', 'RU', 'RW', 'EH', 'SH', 'SM', 'VA', 'ST', 'SN', 'RS', 'SC', 'SL', 'SK', 'SI', 'SO', 'SD', 'SS', 'SE', 'CH', 'SJ', 'TZ', 'TD', 'CZ', 'TF', 'TG', 'TN', 'TR', 'UA', 'ZM', 'ZW', 'BJ', 'CM', 'CI') ) ) {
+         $recipient = 'mail_1@gmail.com';    
+    } elseif ( in_array( $country, array( 'BR', 'IQ', 'LB', 'PS', 'AI', 'AQ', 'AG', 'SA', 'AR', 'AW', 'BS', 'BH', 'BB', 'BZ', 'BM', 'BO', 'BQ', 'BV', 'KY', 'CA', 'CL', 'CO', 'CR', 'CU', 'CW', 'DO', 'DM', 'SV', 'AE', 'EC', 'US', 'FK', 'GS', 'GD', 'GL', 'GP', 'GT', 'GY', 'GF', 'HT', 'HN', 'IL', 'JM', 'JO', 'KW', 'MQ', 'MX', 'MS', 'NI', 'OM', 'PK', 'PA', 'PY', 'PE', 'PR', 'QA', 'SY', 'BL', 'LC', 'KN', 'MF', 'SX', 'PM', 'VC', 'SR', 'TT', 'TC', 'UY', 'VE', 'VG', 'VI', 'YE') ) ) {
+        $recipient = 'mail_2@gmail.com';
+    } else {
+        $recipient = 'mail_3@gmail.com';
+    }
+
+    return $recipient;
+}
+add_filter( 'woocommerce_email_recipient_new_order', 'filter_woocommerce_email_recipient_new_order', 99, 3 );
