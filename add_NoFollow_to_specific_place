@@ -1,0 +1,8 @@
+<?php
+function example_link_nofollow( $content ) {
+    $url  ='http://example.com';
+        $content = str_replace( '&lt;a href="'.$url.'', '&lt;a rel="nofollow" href="'.$url.'', $content );
+    return $content;
+}
+add_filter('the_content','example_link_nofollow');
+?>
