@@ -1,0 +1,33 @@
+// Récupérer la langue de l'utilisateur avec Polylang
+$langue = pll_current_language();
+
+// Vérifier la langue et définir l'URL de la catégorie appropriée
+if ($langue == 'fr') {
+    $url_cat = '/pieces-detachees/';
+} elseif ($langue == 'en') {
+    $url_cat = '/en/shop_usa/';
+} elseif ($langue == 'zh') {
+    $url_cat = '/zh/shop/';
+} else {
+    // Si la langue n'est pas définie, rediriger vers la page d'accueil
+    $url_cat = '/';
+}
+
+// Modifier l'URL du lien "Accueil" dans le fil d'ariane de WooCommerce
+add_filter( 'woocommerce_breadcrumb_home_url', 'wpm_custom_breadrumb_home_url' ); 
+function wpm_custom_breadrumb_home_url() { 
+    // Récupérer la langue de l'utilisateur avec Polylang
+    $langue = pll_current_language();
+    if ($langue == 'fr') {
+        return 'https://your.url.com/pieces-detachees/';
+    } elseif ($langue == 'en') {
+        return 'https://your.url.com/en/shop_usa/';
+    } elseif ($langue == 'zh') {
+        return 'https://your.url.com/zh/shop/';
+    } else {
+        return 'https://your.url.com/en/home-page-2/';
+    }
+}
+
+// Afficher le lien de la catégorie appropriée dans le fil d'ariane de WooCommerce
+echo '<a href="' . $url_cat . '">Catégorie de produits</a>';
