@@ -1,0 +1,5 @@
+<?php
+$commcount = $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '1'");
+if (0 < $commcount) $commcount = number_format($commcount);
+echo "Our users have made ".$commcount." comments, care to join in?";
+?>
