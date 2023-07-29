@@ -27,7 +27,7 @@ If you wish to contribute to this project, follow these steps:
 
 ## License
 
-This project is licensed under the [License](license_link).
+This project is licensed under the [OPEN SOURCE](https://opensource.org/osd/).
 
 ## Author
 
