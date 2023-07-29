@@ -33,6 +33,7 @@ This project is licensed under the [OPEN SOURCE](https://opensource.org/osd/).
 
 [Marin Bardiot]([github_profile_link](https://github.com/bardiotmarin))
 
+⭐ this project for spread the love 
 ---
 
 We encourage community contributions to enhance this project and make it a valuable repository of useful snippets for the WordPress community. If you have any questions, ideas, or suggestions, feel free to share them!
