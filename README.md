@@ -1,7 +1,7 @@
 # THE_WORDPRESS-SNIPPET-PACK_PHP
 
 
-![Banner](banner_link.png)
+![Banner](snippet.png)
 
 ## Description
 
