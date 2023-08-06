@@ -1,0 +1,2 @@
+$names = array();
+array_push($names, 'Snoop Dog', 'Find The Rose');

@@ -1,0 +1,1 @@
+$names = array_values($names);

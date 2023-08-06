@@ -1,0 +1,6 @@
+//Retrieve a GET request parameter, which can be specified in the URL
+
+// index.php?name=david
+echo $_GET['name'];
+// index.php?name=david&surname=adams
+echo $_GET['surname'];

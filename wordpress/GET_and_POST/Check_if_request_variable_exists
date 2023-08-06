@@ -1,0 +1,3 @@
+if (isset($_GET['name'])) {
+	// exists
+}

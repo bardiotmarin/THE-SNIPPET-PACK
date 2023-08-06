@@ -1,0 +1,1 @@
+$merged_array = array_merge($array1, $array2);

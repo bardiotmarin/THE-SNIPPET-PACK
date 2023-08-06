@@ -1,0 +1,1 @@
+$array = explode(',', 'snoop dog,john,find the rose,booba');

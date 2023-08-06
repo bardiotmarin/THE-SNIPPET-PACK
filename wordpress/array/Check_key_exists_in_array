@@ -1,0 +1,3 @@
+if (array_key_exists('name', array('name' => 'David', 'age' => 28))) {
+	// key exists
+}

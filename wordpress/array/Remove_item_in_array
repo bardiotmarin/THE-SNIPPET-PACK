@@ -1,0 +1,3 @@
+unset($names['Snoop Dog']);
+// or...
+unset($names[0]);

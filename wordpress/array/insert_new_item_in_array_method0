@@ -1,0 +1,3 @@
+$names = array();
+$names[] = 'Snoop Dog';
+$names[] = 'Find The Rose';
