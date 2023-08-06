@@ -1,0 +1,4 @@
+$result = $mysqli->query('SELECT * FROM artist');
+while ($row = $result->fetch_assoc()) {
+	echo $row['name'] . '<br>';
+}

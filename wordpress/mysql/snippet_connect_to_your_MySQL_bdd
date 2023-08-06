@@ -1,0 +1,5 @@
+//The following snippet will connect to your MySQL database using the MySQL improved extension.
+//However, for the above connection code to work correctly, you must update the parameters to reflect your database credentials.
+
+
+$mysqli = mysqli_connect('localhost', 'DATABASE_USERNAME', 'DATABASE_PASSWORD', 'DATABASE_NAME');

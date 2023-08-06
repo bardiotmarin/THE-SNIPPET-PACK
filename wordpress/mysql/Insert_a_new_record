@@ -1,0 +1,1 @@
+$mysqli->query('INSERT INTO artists (name) VALUES ("Snoop Dog")');
