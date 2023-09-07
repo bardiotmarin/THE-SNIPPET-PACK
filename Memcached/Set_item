@@ -1,1 +1,1 @@
-$memcached->set('name', 'David');
+$memcached->set('name', 'Marin');
