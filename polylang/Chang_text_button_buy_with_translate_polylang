@@ -2,12 +2,12 @@ add_filter('woocommerce_product_add_to_cart_text', 'replace_cart_text');
 add_filter('woocommerce_product_single_add_to_cart_text', 'replace_cart_text');
 function replace_cart_text() {
     if (get_locale() == 'fr_FR') {
-        return 'Ajouter au devis';
+        return 'Add your french text';
     }
     if (get_locale() == 'en_US') {
-        return 'Add to quotes';
+        return 'Add your english text';
     }
 	 if (get_locale() == 'zh_CN') {
-        return '索取报价';
+        return 'Add your chiness text';
     }
 } 
